@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initiale-scale=1.0">
+<head>
+	<script language="Javascript" type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/jquery.lwtCountdown-1.0.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/misc.js"></script>
+	<link rel="Stylesheet" type="text/css" href="style/dark.css"></link>
+<script language="javascript" type="text/javascript">
+			var today = new Date();
+</script>
+	<title>Compte à rebours</title>
+</head>
+
+<body>
+<div style="width:700px; margin:auto;">
+<br style="clear:both;"/>
+</div>
+	<div id="container">
+	
+		<h1>Compte à rebours</h1>
+		<h2 class="subtitle">Restez concentrés car il vous reste : </h2>
+
+		<div id="countdown_dashboard">
+
+			<div class="dash hours_dash">
+				<span class="dash_title">hours</span>
+				<div class="digit">0</div>
+				<div class="digit">0</div>
+			</div>
+
+			<div class="dash minutes_dash">
+				<span class="dash_title">minutes</span>
+				<div class="digit">0</div>
+				<div class="digit">0</div>
+			</div>
+
+			<div class="dash seconds_dash">
+				<span class="dash_title">seconds</span>
+				<div class="digit">0</div>
+				<div class="digit">0</div>
+			</div>
+
+		</div>
+
+		<div class="subscribe">
+		<br/><br/><br/><br/>
+			<h2 class="subtitle">Entrez l'heure de fin:</h2>
+			<form action="" method="POST" id="subscribe_form">
+				<label>Heures:Minutes</label>
+				<input size="3" maxlength="2" type="text" class="text" id="heure" value=""/>:<input size="3" maxlength="2" class="text"   type="text" id="minute" value=""/>
+				<div style="position:relative;
+	width:500px; 
+	margin:auto;
+	margin-top:50px;">
+		<input type="submit" class="button" id="subscribe_button" value="Commencer" />
+	</div>
+				
+			</form>
+		</div>
+		<div class="cancel" style="display:none;">
+			<h1 style="border:none; margin-bottom:20px;">Avant:<span id="last"></span></h1>
+			<a href="?">Annuler</a>
+		</div>
+
+		<script language="javascript" type="text/javascript">
+			jQuery(document).ready(function() {
+				$("#heure").val(today.getHours()+1);
+				$("#minute").val(today.getMinutes());
+				$('#subscribe_form').bind('submit', function() { 
+					if(isNaN($("#heure").val()) || isNaN($("#minute").val())) {
+						alert("Heure ou minute incorrect.\n Les mettre au format 24h.\n");
+						$('#heure').focus();
+						return false;
+					}
+					else {
+						$('.subscribe').css('display','none');
+						$('.cancel').css('display','block');
+						
+						if($("#minute").val().length <2) minute = "0"+$("#minute").val();
+						else minute = $("#minute").val();
+						$('#last').text($("#heure").val()+':'+minute);
+						$('#countdown_dashboard').countDown({
+							targetDate: {
+								'day': 		today.getDate(),
+								'month': 	today.getMonth()+1,
+								'year': 	today.getFullYear(),
+								'hour': 	$("#heure").val(),
+								'min': 		$("#minute").val(),
+								'sec': 		0
+							}, 
+
+							onComplete: function() { 
+								$('body').css('background',"red").animate({
+									opacity: 0.3
+								  }, 1000
+								  ).animate({
+									opacity: 1
+								  }, 1000
+								  ).animate({
+									opacity: 0.3
+								  }, 1000
+								  ).animate({
+									opacity: 1
+								  }, 1000
+								  ).animate({
+									opacity: 0.3
+								  }, 1000
+								  ).animate({
+									opacity: 1
+								  }, 1000
+								  ).animate({
+									opacity: 0.3
+								  }, 1000
+								  ).animate({
+									opacity: 1
+								  }, 1000
+								  );
+							}
+						});
+					}
+					return false; 
+				});
+			});
+		</script>
+	<div class="footer">Gabrieln</div>
+	</div>
+</body>
+
+</html>
